@@ -1,9 +1,0 @@
-<svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
-  <g transform="translate(5,9)" fill="#2563EB">
-    <circle cx="10" cy="10" r="8" opacity="0.2"></circle>
-    <path d="M5 10 L12 6 L12 9 L18 9 L18 11 L12 11 L12 14 Z"></path>
-  </g>
-  <text x="35" y="24" font-size="16" font-family="Arial" font-weight="600" fill="#374151">
-    GoDrive
-  </text>
-</svg>

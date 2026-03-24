@@ -1,0 +1,239 @@
+import logo from "./logo.png";
+import gmail_logo from "./gmail_logo.svg";
+import facebook_logo from "./facebook_logo.svg";
+import instagram_logo from "./instagram_logo.svg";
+import twitter_logo from "./twitter_logo.svg";
+import menu_icon from "./menu_icon.svg";
+import search_icon from "./search_icon.svg"
+import close_icon from "./close_icon.svg"
+import users_icon from "./users_icon.svg"
+import car_icon from "./car_icon.svg"
+import location_icon from "./location_icon.svg"
+import fuel_icon from "./fuel_icon.svg"
+import addIcon from "./addIcon.svg"
+import carIcon from "./carIcon.svg"
+import carIconColored from "./carIconColored.svg"
+import dashboardIcon from "./dashboardIcon.svg"
+import dashboardIconColored from "./dashboardIconColored.svg"
+import addIconColored from "./addIconColored.svg"
+import listIcon from "./listIcon.svg"
+import listIconColored from "./listIconColored.svg"
+import cautionIconColored from "./cautionIconColored.svg"
+import arrow_icon from "./arrow_icon.svg"
+import star_icon from "./star_icon.svg"
+import check_icon from "./check_icon.svg"
+import tick_icon from "./tick_icon.svg"
+import delete_icon from "./delete_icon.svg"
+import eye_icon from "./eye_icon.svg"
+import eye_close_icon from "./eye_close_icon.svg"
+import filter_icon from "./filter_icon.svg"
+import edit_icon from "./edit_icon.svg"
+import calendar_icon_colored from "./calendar_icon_colored.svg"
+import location_icon_colored from "./location_icon_colored.svg"
+import testimonial_image_1 from "./testimonial_image_1.png"
+import testimonial_image_2 from "./testimonial_image_2.png"
+import main_car from "./main_car.png"
+import banner_car_image from "./banner_car_image.png"
+import user_profile from "./user_profile.png"
+import upload_icon from "./upload_icon.svg"
+import car_image1 from "./car_image1.png"
+import car_image2 from "./car_image2.png"
+import car_image3 from "./car_image3.png"
+import car_image4 from "./car_image4.png"
+
+export const cityList = ['New York', 'Los Angeles', 'Houston', 'Chicago']
+
+export const assets = {
+    logo,
+    gmail_logo,
+    facebook_logo,
+    instagram_logo,
+    twitter_logo,
+    menu_icon,
+    search_icon,
+    close_icon,
+    users_icon,
+    edit_icon,
+    car_icon,
+    location_icon,
+    fuel_icon,
+    addIcon,
+    carIcon,
+    carIconColored,
+    dashboardIcon,
+    dashboardIconColored,
+    addIconColored,
+    listIcon,
+    listIconColored,
+    cautionIconColored,
+    calendar_icon_colored,
+    location_icon_colored,
+    arrow_icon,
+    star_icon,
+    check_icon,
+    tick_icon,
+    delete_icon,
+    eye_icon,
+    eye_close_icon,
+    filter_icon,
+    testimonial_image_1,
+    testimonial_image_2,
+    main_car,
+    banner_car_image,
+    car_image1,
+    upload_icon,
+    user_profile,
+    car_image2,
+    car_image3,
+    car_image4
+}
+
+export const menuLinks = [
+    { name: "Home", path: "/" },
+    { name: "Cars", path: "/cars" },
+    { name: "My Bookings", path: "/my-bookings" },
+]
+
+export const ownerMenuLinks = [
+    { name: "Dashboard", path: "/owner", icon: dashboardIcon, coloredIcon: dashboardIconColored },
+    { name: "Add car", path: "/owner/add-car", icon: addIcon, coloredIcon: addIconColored },
+    { name: "Manage Cars", path: "/owner/manage-cars", icon: carIcon, coloredIcon: carIconColored },
+    { name: "Manage Bookings", path: "/owner/manage-bookings", icon: listIcon, coloredIcon: listIconColored },
+]
+export const dummyUserData = {
+  "_id": "7847a2cab3d8daecdb517111",
+  "name": "DriveHub",
+  "email": "drivehub@example.com",
+  "role": "owner",
+  "image": user_profile,
+}
+
+export const dummyCarData = [
+    {
+        "_id": "77aa5bc069c03d4e45f30111",
+        "owner": "77fe3467ed8a8fe17d0ba6111",
+        "brand": "Audi",
+        "model": "Q7",
+        "image": car_image1,
+        "year": 2019,
+        "category": "SUV",
+        "seating_capacity": 5,
+        "fuel_type": "Petrol",
+        "transmission": "Automatic",
+        "pricePerDay": 280,
+        "location": "San Francisco",
+        "description": "The Audi Q7 is a premium luxury SUV known for its spacious interior and powerful performance.",
+        "isAvaliable": true,
+        "createdAt": "2025-05-10T10:15:40.215Z",
+    },
+    {
+        "_id": "77bb6b758f1b3684286a2222",
+        "owner": "77fe3467ed8a8fe17d0ba6111",
+        "brand": "Honda",
+        "model": "Civic",
+        "image": car_image2,
+        "year": 2022,
+        "category": "Sedan",
+        "seating_capacity": 4,
+        "fuel_type": "Petrol",
+        "transmission": "Manual",
+        "pricePerDay": 110,
+        "location": "Seattle",
+        "description": "The Honda Civic is a reliable compact sedan known for efficiency and comfort.",
+        "isAvaliable": true,
+        "createdAt": "2025-05-11T09:20:57.993Z",
+    },
+    {
+        "_id": "77cc6b9f8f1b3684286a2333",
+        "owner": "77fe3467ed8a8fe17d0ba6111",
+        "brand": "Mercedes",
+        "model": "GLA",
+        "image": car_image3,
+        "year": 2023,
+        "category": "SUV",
+        "seating_capacity": 5,
+        "fuel_type": "Hybrid",
+        "transmission": "Automatic",
+        "pricePerDay": 320,
+        "location": "Miami",
+        "description": "The Mercedes GLA offers luxury styling combined with advanced technology and smooth performance.",
+        "isAvaliable": true,
+        "createdAt": "2025-05-12T11:34:39.592Z",
+    },
+    {
+        "_id": "78009c93a3f5fc6338ea7444",
+        "owner": "77fe3467ed8a8fe17d0ba6111",
+        "brand": "Hyundai",
+        "model": "Elantra",
+        "image": car_image4,
+        "year": 2021,
+        "category": "Sedan",
+        "seating_capacity": 5,
+        "fuel_type": "Diesel",
+        "transmission": "Semi-Automatic",
+        "pricePerDay": 150,
+        "location": "Dallas",
+        "description": "The Hyundai Elantra is a stylish sedan offering excellent fuel economy and modern design.",
+        "isAvaliable": true,
+        "createdAt": "2025-05-13T07:45:47.318Z",
+    }
+];
+
+export const dummyMyBookingsData = [
+    {
+        "_id": "78482bcc98eb9722b7752111",
+        "car": dummyCarData[0],
+        "user": "7847a2cab3d8daecdb517111",
+        "owner": "7847a2cab3d8daecdb517111",
+        "pickupDate": "2025-07-01T00:00:00.000Z",
+        "returnDate": "2025-07-03T00:00:00.000Z",
+        "status": "confirmed",
+        "price": 560,
+        "createdAt": "2025-06-20T12:30:48.244Z",
+    },
+    {
+        "_id": "78482bb598eb9722b7752222",
+        "car": dummyCarData[1],
+        "user": "7847a2cab3d8daecdb517111",
+        "owner": "77fe3467ed8a8fe17d0ba6111",
+        "pickupDate": "2025-07-05T00:00:00.000Z",
+        "returnDate": "2025-07-06T00:00:00.000Z",
+        "status": "pending",
+        "price": 110,
+        "createdAt": "2025-06-20T12:10:25.613Z",
+    },
+    {
+        "_id": "784800fa0fb481c5cfd92233",
+        "car": dummyCarData[2],
+        "user": "7847a2cab3d8daecdb517111",
+        "owner": "77fe3467ed8a8fe17d0ba6111",
+        "pickupDate": "2025-07-07T00:00:00.000Z",
+        "returnDate": "2025-07-09T00:00:00.000Z",
+        "status": "pending",
+        "price": 640,
+        "createdAt": "2025-06-20T09:55:06.379Z",
+    },
+    {
+        "_id": "7847fe790fb481c5cfd92444",
+        "car": dummyCarData[3],
+        "user": "7847a2cab3d8daecdb517111",
+        "owner": "7847a2cab3d8daecdb517111",
+        "pickupDate": "2025-07-10T00:00:00.000Z",
+        "returnDate": "2025-07-12T00:00:00.000Z",
+        "status": "confirmed",
+        "price": 300,
+        "createdAt": "2025-06-20T09:44:25.410Z",
+    }
+]
+
+export const dummyDashboardData = {
+    "totalCars": 4,
+    "totalBookings": 3,
+    "pendingBookings": 1,
+    "completedBookings": 2,
+    "recentBookings": [
+        dummyMyBookingsData[2],
+        dummyMyBookingsData[3]
+    ],
+    "monthlyRevenue": 970
+}

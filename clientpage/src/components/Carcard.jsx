@@ -1,13 +1,13 @@
 import React from 'react'
 import { assets } from '../assets/assets';
 
-const Carcard = (car) => {
+const Carcard = ({car}) => {
     const currency=import.meta.env.VITE_CURRENCY;
   return (
     <div className='group rounded-xl overflow-hidden shadow-lg hover:-translate-y-1 
     transition-all duration-500 cursor-pointer'>
     <div className='relative h-48 overflow-hidden'>
-        <img src="{car.image}" alt="carImage"
+        <img src={car.image} alt="carImage"
         className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105' />
         {
             car.isAvailable && <p className='absolute top-4 left-4 bg-primary/90 
@@ -50,4 +50,4 @@ const Carcard = (car) => {
   )
 }
 
-export default Carcard
+export default Carcard;

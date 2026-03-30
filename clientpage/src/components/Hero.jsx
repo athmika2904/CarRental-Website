@@ -12,20 +12,18 @@ const Hero = () => {
 
  <form
   className="flex flex-col md:flex-row items-center md:items-end
-  gap-4 md:gap-6
-  px-6 md:px-10 py-6
+  gap-6 md:gap-8
+  px-10 md:px-14 py-8
   bg-white rounded-2xl md:rounded-full
-  shadow-lg mt-8">
+  shadow-xl mt-8">
 
-    {/* Pickup Location */}
     <div className="flex flex-col items-start">
       <label className="text-sm font-medium">Pickup Location</label>
       <select
         required
         value={pickupLocation}
         onChange={(e)=>setPickupLocation(e.target.value)}
-        className="border rounded-lg px-4 py-2 text-base text-gray-700 w-full md:w-auto"
-
+        className="border rounded-lg px-4 py-3 text-base text-gray-700 w-full md:w-auto"
       >
         <option value="">Select location</option>
         {cityList.map((city)=>(
@@ -34,38 +32,42 @@ const Hero = () => {
       </select>
     </div>
 
-    {/* Pickup Date */}
     <div className="flex flex-col items-start">
       <label className="text-sm font-medium">Date of Pick-up</label>
       <input
         type="date"
         min={new Date().toISOString().split("T")[0]}
-        className="border rounded-lg px-4 py-2 text-base text-gray-700 w-full md:w-auto"
+        className="border rounded-lg px-4 py-3 text-base text-gray-700 w-full md:w-auto"
         required
       />
     </div>
 
-    {/* Return Date */}
     <div className="flex flex-col items-start">
       <label className="text-sm font-medium">Return Date</label>
       <input
         type="date"
-        className="border rounded-md px-3 py-1.5 text-sm text-gray-600"
+        className="border rounded-lg px-4 py-3 text-base text-gray-700 w-full md:w-auto"
         required
       />
     </div>
 
     <button
-  className="flex items-center justify-center gap-2
-  px-8 py-3 bg-blue-800 hover:bg-blue-900
-  text-white text-base font-medium rounded-full
-  w-full md:w-auto">
+      className="flex items-center justify-center gap-2
+      px-10 py-3 bg-blue-800 hover:bg-blue-900
+      text-white text-base font-medium rounded-full
+      w-full md:w-auto">
       <img src={assets.search_icon} className="w-4 brightness-0 invert"/>
       Search
     </button>
 
   </form>
-  <img src={assets.main_car} alt="maincar" className="w-full max-w-4xl mt-10 mb-10 px-6 object-contain"/>
+
+  <img
+    src={assets.main_car}
+    alt="maincar"
+    className="w-full max-w-4xl mt-4 mb-10 px-6 object-contain"
+  />
+
 </div>
   )
 }

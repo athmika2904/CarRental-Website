@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Cars from './pages/Cars';
 import carDetails from './pages/carDetails';
 import MyBookings from './pages/MyBookings';
+import Footer from './components/Footer';
 const App = () => {
   const [showlogin,setShowLogin]=useState(false);
   const isOwnerpath=useLocation().pathname.startsWith('/owner')
@@ -17,6 +18,7 @@ const App = () => {
         <Route path='/cars' element={<Cars/>}/>
         <Route path='/my-bookings' element={<MyBookings/>}/>
       </Routes>
+      {!isOwnerpath && <Footer/>}
     </>
   )
 }

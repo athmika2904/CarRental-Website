@@ -139,7 +139,7 @@ export const dummyCarData = [
         "pricePerDay": 11000,
         "location": "Delhi",
         "description": "The Honda Civic is a reliable compact sedan known for efficiency and comfort.",
-        "isAvaliable": true,
+        "isAvailable": true,
         "createdAt": "2025-05-11T09:20:57.993Z",
     },
     {
@@ -156,7 +156,7 @@ export const dummyCarData = [
         "pricePerDay": 6500,
         "location": "Bengaluru",
         "description": "The Toyota Fortuner is a powerful SUV popular for long drives, off-road capability, and premium comfort.",
-        "isAvaliable": true,
+        "isAvailable": true,
         "createdAt": "2025-06-14T09:20:30.215Z",
     },
     {
@@ -173,7 +173,7 @@ export const dummyCarData = [
         "pricePerDay": 3200,
         "location": "Mumbai",
         "description": "The Hyundai Creta is a stylish compact SUV offering great mileage, comfort, and modern features.",
-        "isAvaliable": true,
+        "isAvailable": true,
         "createdAt": "2025-07-05T11:05:15.215Z",
     }
 ];

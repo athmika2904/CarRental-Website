@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import { useLocation,Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Cars from './pages/Cars';
-import carDetails from './pages/carDetails';
+import CarDetails from './pages/carDetails';
 import MyBookings from './pages/MyBookings';
 import Footer from './components/Footer';
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
       {!isOwnerpath && <Navbar setShowLogin={setShowLogin}/>}
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/car-details/:id' element={<carDetails/>}/>
+        <Route path='/car-details/:id' element={<CarDetails/>}/>
         <Route path='/cars' element={<Cars/>}/>
         <Route path='/my-bookings' element={<MyBookings/>}/>
       </Routes>

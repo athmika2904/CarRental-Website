@@ -6,6 +6,9 @@ const CarDetails = () => {
   const {id}=useParams()
   const navigate=useNavigate()
   const [car,setCar]=useState(null);
+  const handleSubmit=async(e)=>{
+    e.preventDefault();
+  }
   useEffect(()=>{
     setCar(dummyCarData.find(car=>car._id===id))
   },[id])
@@ -54,7 +57,7 @@ const CarDetails = () => {
                 </div>
               </div>
           </div>
-          <form className='w-full shadow-lg  sticky top-24 rounded-xl p-6 space-y-6 text-gray-500'>
+          <form onSubmit={handleSubmit} className='w-full shadow-lg  sticky top-24 rounded-xl p-6 space-y-6 text-gray-500'>
             <p className='flex items-center justify-between text-2xl text-gray-800 font-semibold'> ₹{car.pricePerDay}<span className='text-base text-gray-400 font-normal'> per day</span></p>
             <hr className='border-borderColor my-6'/>
             <div className='flex flex-col gap-2'>

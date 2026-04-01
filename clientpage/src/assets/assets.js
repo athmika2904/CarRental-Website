@@ -147,7 +147,7 @@ export const dummyCarData = [
         "owner": "77fe3467ed8a8fe17d0ba6112",
         "brand": "Toyota",
         "model": "Fortuner",
-        "image": car_image2,
+        "image": car_image3,
         "year": 2021,
         "category": "SUV",
         "seating_capacity": 7,
@@ -164,7 +164,7 @@ export const dummyCarData = [
         "owner": "77fe3467ed8a8fe17d0ba6113",
         "brand": "Hyundai",
         "model": "Creta",
-        "image": car_image3,
+        "image": car_image4,
         "year": 2022,
         "category": "SUV",
         "seating_capacity": 5,
@@ -187,7 +187,7 @@ export const dummyMyBookingsData = [
         "pickupDate": "2025-07-01T00:00:00.000Z",
         "returnDate": "2025-07-03T00:00:00.000Z",
         "status": "confirmed",
-        "price": 560,
+        "price": 12000,
         "createdAt": "2025-06-20T12:30:48.244Z",
     },
     {
@@ -198,7 +198,7 @@ export const dummyMyBookingsData = [
         "pickupDate": "2025-07-05T00:00:00.000Z",
         "returnDate": "2025-07-06T00:00:00.000Z",
         "status": "pending",
-        "price": 110,
+        "price": 11000,
         "createdAt": "2025-06-20T12:10:25.613Z",
     },
     {
@@ -209,7 +209,7 @@ export const dummyMyBookingsData = [
         "pickupDate": "2025-07-07T00:00:00.000Z",
         "returnDate": "2025-07-09T00:00:00.000Z",
         "status": "pending",
-        "price": 640,
+        "price": 6500,
         "createdAt": "2025-06-20T09:55:06.379Z",
     },
     {
@@ -220,7 +220,7 @@ export const dummyMyBookingsData = [
         "pickupDate": "2025-07-10T00:00:00.000Z",
         "returnDate": "2025-07-12T00:00:00.000Z",
         "status": "confirmed",
-        "price": 300,
+        "price": 3200,
         "createdAt": "2025-06-20T09:44:25.410Z",
     }
 ]

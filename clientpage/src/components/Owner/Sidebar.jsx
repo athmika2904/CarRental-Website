@@ -27,7 +27,7 @@ const Sidebar = () => {
           <img
             src={img ? URL.createObjectURL(img) : userImage || assets.testimonial_image_1}
             alt=""
-            className="rounded-full w-20 h-20 object-cover"
+            className=" h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto"
           />
 
           <input

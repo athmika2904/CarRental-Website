@@ -1,11 +1,11 @@
 import user from "../models/User.js"
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken";
 const generateToken=(userId)=>{
     const payload=userId;
     return jwt.sign(payload,process.env.SECRET_KEY)
 }
-export const registeruser=async(req,res)=>{
+export const registerUser=async(req,res)=>{
     try{
         const{name,email,password}=req.body
         if(!name||!email||!password||password.length<8){

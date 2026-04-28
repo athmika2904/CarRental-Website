@@ -2,7 +2,7 @@ import user from "../models/User.js"
 import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken";
 const generateToken=(userId)=>{
-    const payload=userId;
+    const payload={id:userId};
     return jwt.sign(payload,process.env.SECRET_KEY)
 }
 export const registerUser=async(req,res)=>{
@@ -17,7 +17,7 @@ export const registerUser=async(req,res)=>{
         }
         const hashedPassword=await bcrypt.hash(password,10)
         const usermodel=await user.create({name,email,password:hashedPassword})
-        const token=generateToken(user._id.toString());
+        const token=generateToken(usermodel._id.toString());
         res.json({success:true,token})
 
     }catch(error){
@@ -29,7 +29,7 @@ export const LoginUser=async(req,res)=>{
     try{
         const {email,password}=req.body
         const usermodel=await user.findOne({email})
-        if(!user){
+        if(!usermodel){
             return res.json({success:false,message:"User not found"})
         }
         const isMatch=await bcrypt.compare(password,usermodel.password)

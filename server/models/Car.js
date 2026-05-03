@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-const { objectId }=mongoose.Schema.Types;
 const carSchema=new mongoose.Schema({
     owner:{type:mongoose.Schema.Types.ObjectId,ref:"User"},
     brand:{type:String,required:true},

@@ -45,3 +45,47 @@ export const createBooking=async(req,res)=>{
         res.json({success:false,message:error.message})
     }
 }
+export const getUserbooking=async(req,res)=>{
+    try {
+        const {_id}=req.user;
+        const bookings=await Booking.find({user:_id}).populate("car").sort({createdAt:-1})
+        res.json({success:true,bookings})
+    }
+    catch(error){
+        console.log(error.message);
+        res.json({success:false,message:error.message})
+
+    }
+}
+export const getownerbooking=async(req,res)=>{
+    try {
+        if(req.user.role!=='owner'){
+            return res.json({success:false,message:"Unauthorised"})
+        }
+        const bookings=await Booking.find({owner:req.user._id}).populate('car user'.select("-user.password").sort({createdAt:-1}))
+        res.json({success:true,bookings})
+    }
+    catch(error){
+        console.log(error.message);
+        res.json({success:false,message:error.message})
+
+    }
+}
+export const changebookingStatus=async(req,res)=>{
+    try {
+        const {_id}=req.user;
+        const {bookingId,status}=req.body;
+        const bookings=await Booking.findById(bookingId);
+        if(bookings.owner.toString()!==_id.toString()){
+            return res.json({success:false,message:"Unauthorised"})
+        }
+        bookings.status=status;
+        await bookings.save();
+        res.json({success:true,bookings})
+    }
+    catch(error){
+        console.log(error.message);
+        res.json({success:false,message:error.message})
+
+    }
+}

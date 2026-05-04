@@ -113,3 +113,33 @@ export const getDashboardData=async(req,res)=>{
         res.json({success:false,message:error.message})
     }
 }
+export const updateImg=async(req,res)=>{
+    try {
+        const {_id,role}=req.user;
+         const imageFile=req.file;
+        const fileBuffer=fs.readFileSync(imageFile.path)
+       const response= await client.upload({
+            file:fileBuffer,
+            filename:imageFile.originalname,
+            folder:'/users'
+        })
+        const url = client.helper.buildSrc({
+        src: response.filePath,
+        transformation: [
+        {
+        width: 400,
+        height: 300,
+        crop: 'maintain_ratio',
+        quality: 'auto',
+        format: 'webp',
+        },
+  ],
+        });
+        const image=url;
+        await User.findByIdAndUpdate(_id,{image});
+        res.json({success:true,message:"Image updated"})
+    } catch (error) {
+       console.log(error.message);
+        res.json({success:false,message:error.message}) 
+    }
+}

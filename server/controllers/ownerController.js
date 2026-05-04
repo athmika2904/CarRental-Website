@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import fs from 'fs';
 import client from "../configs/imageKit.js";
 import Car from "../models/Car.js";
+import Booking from "../models/Booking.js";
 export const changeToOwner=async(req,res)=>{
     try {
         const {_id}=req.user;
@@ -94,6 +95,19 @@ export const getDashboardData=async(req,res)=>{
         return res.json({success:false,message:"Unauthorized"})
        } 
        const  cars=await Car.find({owner:_id})
+       const bookings=await Booking.find({owner:_id}).populate('car').sorted({createdAt:-1});
+       const pendings=await Booking.find({owner:_id,status:"pending"})
+       const confirmed=await Booking.find({owner:_id,status:"confirmed"})
+       const monthlyRevenue=bookings.slice().filter(b=>b.status==='confirmed').reduce((acc,b)=>acc+b.price,0);
+       const dashboardData={
+        totalCars:cars.length,
+        totalBookings:bookings.length,
+        pendingBookings:pendings.length,
+        completedBookings:confirmed.length,
+        recentBookings:bookings.slice(0,3),
+        monthlyRevenue
+       }
+       res.json({success:true,dashboardData})
     } catch (error) {
         console.log(error.message);
         res.json({success:false,message:error.message})

@@ -1,7 +1,7 @@
 import Booking from "../models/Booking.js";
 import Car from "../models/Car.js";
 
-const checkifAvailable=async(car,pickupDate,returnDate)=>{
+export const checkifAvailable=async(car,pickupDate,returnDate)=>{
     const bookings=await Booking.find({
         car,
         pickupDate:{$lte:returnDate},

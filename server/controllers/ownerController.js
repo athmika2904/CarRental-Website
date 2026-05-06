@@ -95,7 +95,7 @@ export const getDashboardData=async(req,res)=>{
         return res.json({success:false,message:"Unauthorized"})
        } 
        const  cars=await Car.find({owner:_id})
-       const bookings=await Booking.find({owner:_id}).populate('car').sorted({createdAt:-1});
+       const bookings=await Booking.find({owner:_id}).populate('car').sort({createdAt:-1});
        const pendings=await Booking.find({owner:_id,status:"pending"})
        const confirmed=await Booking.find({owner:_id,status:"confirmed"})
        const monthlyRevenue=bookings.slice().filter(b=>b.status==='confirmed').reduce((acc,b)=>acc+b.price,0);

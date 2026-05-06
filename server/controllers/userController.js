@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken";
 const generateToken=(userId)=>{
     const payload={id:userId};
-    return jwt.sign(payload,process.env.SECRET_KEY)
+    return jwt.sign(payload,process.env.JWT_SECRET)
 }
 export const registerUser=async(req,res)=>{
     try{
@@ -36,7 +36,7 @@ export const LoginUser=async(req,res)=>{
         if(!isMatch){
             return res.json({success:false,message:"Invalid credentials"})
         }
-        const token=generateToken(user._id.toString());
+        const token=generateToken(usermodel._id.toString());
         res.json({success:true,token})
     }
     catch(error){
@@ -46,8 +46,8 @@ export const LoginUser=async(req,res)=>{
 }
 export const getUserData=async (req,res)=>{
     try {
-        const {user1}=req;
-        res.json({success:true,user1})
+        const user=req;
+        res.json({success:true,user})
     } catch (error) {
         console.log(error.message);
         res.json({success:false,message:error.message})

@@ -11,7 +11,7 @@ const carSchema=new mongoose.Schema({
     seating_capacity:{type:Number,required:true},
     pricePerDay:{type:Number,required:true},
     location:{type:String,required:true},
-    descryption:{type:String,required:true},
+    description:{type:String,required:true},
     isAvailable:{type:Boolean,default:true},
 },{timestamps:true})
 const Car=mongoose.model('Car',carSchema);

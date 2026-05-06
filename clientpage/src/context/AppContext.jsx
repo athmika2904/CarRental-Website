@@ -7,11 +7,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 axios.defaults.baseURL=import.meta.env.VITE_BASE_URL;
 export const AppContext=createContext();
-export const AppProvider=({child})=>{
+export const AppProvider=({children})=>{
     const navigate=useNavigate();
     const [token,setToken]=useState(null)
     const [user,setUser]=useState(null)
-    const [isOwner,setisOwner]=useState(false);
+    const [isOwner,setIsOwner]=useState(false);
     const [showlogin,setShowLogin]=useState(false);
     const [pickupDate,setpickupdate]=useState("");
     const [returnDate,setreturndate]=useState("");
@@ -22,7 +22,7 @@ export const AppProvider=({child})=>{
             
             if(data.success){
                 setUser(data.user);
-                setisOwner(data.user.role==='owner');
+                setIsOwner(data.user.role==='owner');
             }
             else{
                 navigate('/')
@@ -54,17 +54,17 @@ export const AppProvider=({child})=>{
     },[])
     useEffect(()=>{
         if(token){
-            axios.defaults.headers.common['Authorization']=`${token}`
+            axios.defaults.headers.common['Authorization']=`Bearer ${token}`
             fetchUser();
         }
     },[token])
     const value={
-        navigate,axios,user,setUser,token,setToken,isOwner,setisOwner,fetchUser,showlogin,setShowLogin,logout,fetchcars,cars,setCars,pickupDate,
+        navigate,axios,user,setUser,token,setToken,isOwner,setIsOwner,fetchUser,showlogin,setShowLogin,logout,fetchcars,cars,setCars,pickupDate,
         setpickupdate,returnDate,setreturndate
     }
     return(
     <AppContext.Provider value={value}>
-        {child}
+        {children}
     </AppContext.Provider>)
 }
 export const useAppContext=()=>{

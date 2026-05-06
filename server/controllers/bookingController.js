@@ -38,7 +38,7 @@ export const createBooking=async(req,res)=>{
         const returned=new Date(returnDate)
         const noofDays=Math.ceil((returned-picked)/(1000*60*60*24))
         const price=carData.pricePerDay*noofDays;
-        await Booking.create({car,owner:carData.owner,user:_id.pickupDate,returnDate,price})
+        await Booking.create({car,owner:carData.owner,user:_id,pickupDate,returnDate,price})
         res.json({success:true,message:"Booking Created"})
     } catch (error) {
         console.log(error.message);
@@ -62,7 +62,7 @@ export const getownerbooking=async(req,res)=>{
         if(req.user.role!=='owner'){
             return res.json({success:false,message:"Unauthorised"})
         }
-        const bookings=await Booking.find({owner:req.user._id}).populate('car user'.select("-user.password").sort({createdAt:-1}))
+        const bookings=await Booking.find({owner:req.user._id}).populate('car').populate('user','-password').sort({createdAt:-1})
         res.json({success:true,bookings})
     }
     catch(error){

@@ -2,7 +2,7 @@ import React from 'react'
 import { assets, cityList } from '../assets/assets'
 import { useState } from 'react';
 const Hero = () => {
-    const [pickupLocation,setPickupLocation]=useState(" ");
+    const [pickupLocation,setPickupLocation]=useState("");
   return (
     <div className="flex flex-col items-center pt-28 pb-10 gap-8 bg-gray-100 text-center">
 

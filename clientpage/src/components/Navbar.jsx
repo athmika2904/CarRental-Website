@@ -4,7 +4,7 @@ import {Link, useLocation, useNavigate} from 'react-router-dom';
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 function Navbar(){
-    const {setShowLogin,user,logout,isOwner,axios,setIsOwner}=useAppContext();
+    const {setShowLogin,user,logout,isOwner,axios,setIsOwner,token}=useAppContext();
     const loc=useLocation();
     const [open,setOpen]=useState(false);
     const navigate=useNavigate();
@@ -37,7 +37,7 @@ function Navbar(){
                 </div>
                 <div className="flex max-sm:flex-col items-start sm:items-center gap-6">
                     <button onClick={()=>isOwner?navigate('/owner'):changeRole()} className="cursor-pointer">{isOwner?'Dashboard':'List cars'}</button>
-                    <button onClick={()=>{user?logout():setShowLogin(true)}} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition-all text-white rounded-lg">{user?'Logout':'Login'}</button>
+                    <button onClick={()=>{token?logout():setShowLogin(true)}} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition-all text-white rounded-lg">{token?'Logout':'Login'}</button>
                 </div>
             </div>
             <button className="sm:hidden cursor-pointer" aria-label="Menu" onClick={()=>setOpen(!open)}>

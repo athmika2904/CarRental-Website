@@ -9,7 +9,7 @@ axios.defaults.baseURL=import.meta.env.VITE_BASE_URL;
 export const AppContext=createContext();
 export const AppProvider=({children})=>{
     const navigate=useNavigate();
-    const [token,setToken]=useState(null)
+    const [token,setToken]=useState(localStorage.getItem('token')||null)
     const [user,setUser]=useState(null)
     const [isOwner,setIsOwner]=useState(false);
     const [showlogin,setShowLogin]=useState(false);
@@ -43,13 +43,12 @@ export const AppProvider=({children})=>{
         localStorage.removeItem('token');
         setToken(null);
         setUser(null);
-        setisOwner(false);
+        setIsOwner(false);
         axios.defaults.headers.common['Authorization']=''
         toast.success('You have been logged out!')
     }
     useEffect(()=>{
-        const token=localStorage.getItem('token');
-        setToken(token);
+        
         fetchcars();
     },[])
     useEffect(()=>{

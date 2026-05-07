@@ -1,6 +1,7 @@
 import user from "../models/User.js"
 import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken";
+import Car from "../models/Car.js";
 const generateToken=(userId)=>{
     const payload={id:userId};
     return jwt.sign(payload,process.env.JWT_SECRET)
@@ -48,6 +49,15 @@ export const getUserData=async (req,res)=>{
     try {
         const user=req;
         res.json({success:true,user})
+    } catch (error) {
+        console.log(error.message);
+        res.json({success:false,message:error.message})
+    }
+}
+export const getCars=async(req,res)=>{
+    try {
+        const cars=await Car.find({isAvailable:true})
+        res.json({success:true,cars})
     } catch (error) {
         console.log(error.message);
         res.json({success:false,message:error.message})

@@ -18,12 +18,15 @@ export const addCar=async(req,res)=>{
         const {_id}=req.user;
         let car=JSON.parse(req.body.carData);
         const imageFile=req.file;
-        const fileBuffer=fs.readFileSync(imageFile.path)
-       const response= await client.upload({
-            file:fileBuffer,
-            filename:imageFile.originalname,
-            folder:'/cars'
-        })
+        const file = fs.readFileSync(imageFile.path, {
+  encoding: "base64",
+});
+
+const response = await client.files.upload({
+  file,
+  fileName: imageFile.originalname,
+  folder: "/cars",
+});
         const url = client.helper.buildSrc({
         src: response.filePath,
         transformation: [
@@ -113,33 +116,55 @@ export const getDashboardData=async(req,res)=>{
         res.json({success:false,message:error.message})
     }
 }
-export const updateImg=async(req,res)=>{
-    try {
-        const {_id,role}=req.user;
-         const imageFile=req.file;
-        const fileBuffer=fs.readFileSync(imageFile.path)
-       const response= await client.upload({
-            file:fileBuffer,
-            filename:imageFile.originalname,
-            folder:'/users'
-        })
-        const url = client.helper.buildSrc({
-        src: response.filePath,
-        transformation: [
-        {
-        width: 400,
-        height: 300,
-        crop: 'maintain_ratio',
-        quality: 'auto',
-        format: 'webp',
-        },
-  ],
-        });
-        const image=url;
-        await User.findByIdAndUpdate(_id,{image});
-        res.json({success:true,message:"Image updated"})
-    } catch (error) {
-       console.log(error.message);
-        res.json({success:false,message:error.message}) 
+export const updateImg = async (req, res) => {
+  try {
+    const { _id } = req.user;
+
+    const imageFile = req.file;
+
+    if (!imageFile) {
+      return res.json({
+        success: false,
+        message: "No image uploaded",
+      });
     }
-}
+
+    const file = fs.readFileSync(imageFile.path, {
+  encoding: "base64",
+});
+
+const response = await client.files.upload({
+  file,
+  fileName: imageFile.originalname,
+  folder: "/users",
+});
+
+    const image = client.helper.buildSrc({
+      src: response.filePath,
+      transformation: [
+        {
+          width: 400,
+          height: 300,
+          crop: "maintain_ratio",
+          quality: "auto",
+          format: "webp",
+        },
+      ],
+    });
+
+    await User.findByIdAndUpdate(_id, { image });
+
+    res.json({
+      success: true,
+      message: "Image updated",
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

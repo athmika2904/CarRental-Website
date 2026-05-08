@@ -1,19 +1,31 @@
 import React, { useState } from "react";
-import { assets, dummyUserData, ownerMenuLinks } from "../../assets/assets";
+import { assets,  ownerMenuLinks } from "../../assets/assets";
 import { NavLink, useLocation } from "react-router-dom";
+import { useAppContext } from "../../context/AppContext";
+import toast from "react-hot-toast";
 
 const Sidebar = () => {
-  const user = dummyUserData;
+  const {user,axios,fetchUser} = useAppContext();
   const loc = useLocation();
 
-  const [img, setImg] = useState("");
-  const [userImage, setUserImage] = useState(user?.image);
+  const [img, setImg] = useState(null);
 
   const updateImg = async () => {
-    if (img) {
-      const newImg = URL.createObjectURL(img);
-      setUserImage(newImg);
-      setImg("");
+    try {
+      const formdata=new FormData();
+      formdata.append('image',img);
+      const {data}=await axios.post('/api/owner/update-image',formdata);
+      console.log(data);
+      if(data.success){
+        fetchUser();
+        toast.success(data.message);
+        setImg('');
+      }
+      else{
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 
@@ -25,7 +37,7 @@ const Sidebar = () => {
       <div className="group relative">
         <label htmlFor="img">
           <img
-            src={img ? URL.createObjectURL(img) : userImage || assets.testimonial_image_1}
+            src={img ? URL.createObjectURL(img) : user?.image || assets.testimonial_image_1}
             alt=""
             className=" h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto"
           />

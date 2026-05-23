@@ -15,6 +15,22 @@ export const changeToOwner=async(req,res)=>{
 }
 export const addCar=async(req,res)=>{
     try {
+      console.log(req.file)
+        console.log(req.body)
+
+        if (!req.file) {
+            return res.json({
+                success:false,
+                message:"Image is required"
+            })
+        }
+
+        if (!req.body.carData) {
+            return res.json({
+                success:false,
+                message:"Car data missing"
+            })
+        }
         const {_id}=req.user;
         let car=JSON.parse(req.body.carData);
         const imageFile=req.file;
@@ -27,19 +43,8 @@ const response = await client.files.upload({
   fileName: imageFile.originalname,
   folder: "/cars",
 });
-        const url = client.helper.buildSrc({
-        src: response.filePath,
-        transformation: [
-        {
-        width: 1280,
-        height: 300,
-        crop: 'maintain_ratio',
-        quality: 'auto',
-        format: 'webp',
-        },
-  ],
-        });
-        const image=url;
+        
+        const image=response.url;
         await Car.create({...car,owner:_id,image})
         res.json({success:true, message:"Car Added"})
     } catch (error) {

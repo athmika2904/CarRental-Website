@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { assets, dummyDashboardData } from '../../assets/assets'
 import TitleOwner from '../../components/Owner/TitleOwner'
+import { useAppContext } from '../../context/AppContext'
+import toast from 'react-hot-toast'
 
 const Dashboard = () => {
+  const {axios,isOwner,navigate}=useAppContext();
   const [data, setData] = useState({
     totalCars: 0,
     totalBookings: 0,
@@ -18,10 +21,24 @@ const Dashboard = () => {
     { title: "Pending", value: data.pendingBookings, icon: assets.cautionIconColored },
     { title: "Confirmed", value: data.completedBookings, icon: assets.listIconColored }
   ]
-
+  const fetchDashboardData=async()=>{
+    try {
+      const {data}=await axios.get('/api/owner/dashboard')
+      if(data.success){
+        setData(data.dashboardData)
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
   useEffect(() => {
-    setData(dummyDashboardData)
-  }, [])
+    if(isOwner){
+      fetchDashboardData()
+    }
+    
+  }, [isOwner,navigate])
 
   return (
     <div className='px-4 pt-10 md:px-10 flex-1'>
@@ -68,7 +85,7 @@ const Dashboard = () => {
                       {booking.car.brand} {booking.car.model}
                     </p>
                     <p className='text-sm text-gray-500'>
-                      {booking.createdAt.split('T')[0]}
+                      {booking.createdAt?.split('T')[0]}
                     </p>
                   </div>
                 </div>

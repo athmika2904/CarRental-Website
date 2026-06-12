@@ -5,7 +5,7 @@ import upload from "../middleware/multer.js";
  const ownerRouter=express.Router();
 ownerRouter.post("/change-role",protect,changeToOwner);
 ownerRouter.post("/add-car",protect,upload.single("image"),addCar)
-ownerRouter.post("/cars",protect,getownerCars)
+ownerRouter.get("/cars",protect,getownerCars)
 ownerRouter.post("/toggle-car",protect,toggleCarAvailability)
 ownerRouter.post("/delete-car",protect,deleteCar)
 ownerRouter.get('/dashboard',protect,getDashboardData);

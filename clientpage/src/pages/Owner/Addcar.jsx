@@ -47,7 +47,7 @@ const Addcar = () => {
       <TitleOwner title="Add New Car" subtitle="Fill in details to list a new car for
       booking, including pricing,availability, and car specifications"/>
       <form onSubmit={submitHandler} className='flex flex-col gap-5 text-gray-500 text-sm mt-6 max-w-xl'>
-        <div className='flex items-center gap-2-w-full'>
+        <div className='flex items-center gap-2 w-full'>
           <label htmlFor="car-image">
             <img src={img?URL.createObjectURL(img):assets.upload_icon} alt="" className='h-14 rounded cursor-pointer' />
             <input type="file" id='car-image' accept='image/*' hidden onChange={e=>setImg(e.target.files[0])}/>
@@ -66,16 +66,16 @@ const Addcar = () => {
             required className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none' value={car.model} onChange={e=>setCar({...car,model:e.target.value})} />
           </div>
         </div>
-        <div className='grid grid-cols-1 sm:griid-cols-2 md:grid-cols-3 gap-6'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
           <div className='flex flex-col w-full'>
             <label >Year</label>
             <input type="number" placeholder='2025'
-            required className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none' value={car.year} onChange={e=>setCar({...car,year:e.target.value})} />
+            required className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none' value={car.year||""} onChange={e=>setCar({...car,year:e.target.value})} />
           </div>
           <div className='flex flex-col w-full'>
             <label >Daily Price (₹)</label>
             <input type="text" placeholder='10000'
-            required className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none' value={car.pricePerDay} onChange={e=>setCar({...car,pricePerDay:e.target.value})} />
+            required className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none' value={car.pricePerDay||""} onChange={e=>setCar({...car,pricePerDay:e.target.value})} />
           </div>
           <div className='flex flex-col w-full'>
             <label >Category</label>
@@ -88,11 +88,11 @@ const Addcar = () => {
             </select>
           </div>
         </div>
-        <div className='grid grid-cols-1 sm:griid-cols-2 md:grid-cols-3 gap-6'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
           <div className='flex flex-col w-full'>
             <label >Transmission</label>
             <select onChange={e=>setCar({...car,transmission:e.target.value})}
-              value={car.transmission} className='px-3 py-2 mt-1 border border-borderColor rounded-md outline none'>
+              value={car.transmission} className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none'>
               <option value="">Select a transmission</option>
               <option value="Automatic">Automatic</option>
               <option value="manual">Manual</option>
@@ -119,13 +119,13 @@ const Addcar = () => {
         </div>
         <div className='flex flex-col w-full'>
           <label >location</label>
-            <select onChange={e=>setCar({...car,location:e.target.value})}
+            <select onChange={e=>setCar({...car,location:e.target.value.toLowerCase()})}
               value={car.location} className='px-3 py-2 mt-1 border border-borderColor rounded-md outline none'>
               <option value="">Select a Location</option>
-              <option value="mumbai">Mumbai</option>
-              <option value="bengaluru">Bengaluru</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Bengaluru">Bengaluru</option>
               <option value="Delhi">Delhi</option>
-              <option value="kolkata">Kolkata</option>
+              <option value="Kolkata">Kolkata</option>
             </select>
         </div>
         <div className='flex flex-col w-full'>
@@ -133,10 +133,10 @@ const Addcar = () => {
             <textarea rows={5} type="text" placeholder='about the car'
             required className='px-3 py-2 mt-1 border border-borderColor rounded-md outline-none' value={car.description} onChange={e=>setCar({...car,description:e.target.value})} />
           </div>
-          <button className='flex items-center gap-2 px-4 py-2.5 mt-4 bg-primary
+          <button className='flex items-center gap-2 px-4 py-3 mt-4 bg-primary
           text-white rounded-md font-medium w-max cursor-pointer'>
             <img src={assets.tick_icon} alt="" />
-            {isLoading?'Listing':'List Your Car'}
+            {isLoading?'Listing...':'List Your Car'}
           </button>
       </form>
     </div>

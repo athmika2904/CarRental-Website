@@ -1,30 +1,103 @@
 import Booking from "../models/Booking.js";
 import Car from "../models/Car.js";
 
-export const checkifAvailable=async(car,pickupDate,returnDate)=>{
-    const bookings=await Booking.find({
-        car,
-        pickupDate:{$lte:returnDate},
-        returnDate:{$gte:pickupDate},
-    })
-    return bookings.length===0;
-}
-export const checkAvailability=async(req,res)=>{
-    try {
-       const {location,pickupDate,returnDate}=req.body
-       const cars=await Car.find({location,isAvailable:true}) 
-       const promise=cars.map(async(c)=>{
-        const isAvailable=await checkifAvailable(c._id,pickupDate,returnDate)
-        return{...c._doc,isAvailable:isAvailable}
-       })
-       let availableCars=await Promise.all(promise);
-       availableCars=availableCars.filter(c=>c.isAvailable===true)
-       res.json({success:true,availableCars})
-    } catch (error) {
-        console.log(error.message);
-        res.json({success:false,message:error.message})
-    }
-}
+export const checkifAvailable = async (car, pickupDate, returnDate) => {
+  const bookings = await Booking.find({
+    car,
+    pickupDate: { $lte: returnDate },
+    returnDate: { $gte: pickupDate },
+  });
+
+  console.log("CAR ID:", car);
+  console.log("BOOKINGS FOUND:", bookings.length);
+
+  return bookings.length === 0;
+};
+export const checkAvailability = async (req, res) => {
+     console.log("CHECK AVAILABILITY API HIT");
+  try {
+    const { location, pickupDate, returnDate } = req.body;
+
+    console.log("=================================");
+    console.log("LOCATION FROM FRONTEND:", location);
+    console.log("PICKUP DATE:", pickupDate);
+    console.log("RETURN DATE:", returnDate);
+
+    const allCars = await Car.find({});
+
+    console.log("TOTAL CARS IN DB:", allCars.length);
+
+    allCars.forEach((car) => {
+      console.log({
+        id: car._id.toString(),
+        location: car.location,
+        isAvailable: car.isAvailable,
+      });
+    });
+
+    const cars = await Car.find({
+       location: { $regex: new RegExp(`^${location}$`, "i") }
+    });
+    console.log("SEARCHED LOCATION:", location);
+console.log("MATCHING CARS:", cars.length);
+
+cars.forEach((car) => {
+  console.log("CAR LOCATION:", car.location);
+});
+   
+
+    const promise = cars.map(async (c) => {
+      const available = await checkifAvailable(
+        c._id,
+        pickupDate,
+        returnDate
+      );
+
+      console.log(
+        "CAR:",
+        c._id.toString(),
+        "LOCATION:",
+        c.location,
+        "AVAILABLE:",
+        available
+      );
+
+      return {
+        ...c._doc,
+        isAvailable: available,
+      };
+    });
+
+    let availableCars = await Promise.all(promise);
+
+    console.log(
+      "BEFORE FILTER:",
+      availableCars.length
+    );
+
+    availableCars = availableCars.filter(
+      (c) => c.isAvailable === true
+    );
+
+    console.log(
+      "AFTER FILTER:",
+      availableCars.length
+    );
+
+    console.log("=================================");
+
+    res.json({
+      success: true,
+      availableCars,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 export const createBooking=async(req,res)=>{
     try {
         const {_id}=req.user;

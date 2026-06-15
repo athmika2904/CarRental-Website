@@ -1,10 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { dummyMyBookingsData } from '../../assets/assets';
 import TitleOwner from '../../components/Owner/TitleOwner';
+import { useAppContext } from '../../context/AppContext';
+import toast from 'react-hot-toast';
 const Managebookings = () => {
+  const {axios}=useAppContext();
   const[book,setBook]=useState([]);
   const fetchBooking=async()=>{
-    setBook(dummyMyBookingsData)
+    try {
+      const {data}=await axios.get('/api/bookings/owner')
+      data.success? setBook(data.bookings):toast.error(data.message)
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+  const changeBookingStatus=async(bookingId,status)=>{
+    try {
+      const {data}=await axios.post('/api/bookings/change-status',{bookingId,status})
+      if(data.success){
+        toast.success(data.message)
+        fetchBooking()
+      }
+      else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
   useEffect(()=>{
     fetchBooking();
@@ -34,17 +55,17 @@ const Managebookings = () => {
                   
                 </td>
                 <td className='p-3 max-md:hidden'>
-                  {b.pickupDate.split('T')[0]} to {b.returnDate.split('T')[0]}
+                  {b.pickupDate?.split('T')[0]} to {b.returnDate?.split('T')[0]}
                 </td>
                 <td className='p-3'>₹{b.price}</td>
-                <td lassName='p-3 max-md:hidden'>
+                <td className='p-3 max-md:hidden'>
                   <span className='bg-gray-100 px-3 py-1 rounded-full text-xs'>offline
                   </span>
                 </td>
                 <td className='p-3'>
                   {b.status==='pending'?(
                     <select className='px-2 py-1.5 mt-1 text-gray-500 border
-                    border-borderColor rounded-md outline-none' value={b.status}>
+                    border-borderColor rounded-md outline-none' value={b.status} onChange={e=>changeBookingStatus(b._id,e.target.value)}>
                       <option value="pending">Pending</option>
                       <option value="cancelled">Cancelled</option>
                       <option value="confirmed">Confirmed</option>

@@ -13,8 +13,8 @@ export const AppProvider=({children})=>{
     const [user,setUser]=useState(null)
     const [isOwner,setIsOwner]=useState(false);
     const [showlogin,setShowLogin]=useState(false);
-    const [pickupDate,setpickupdate]=useState("");
-    const [returnDate,setreturndate]=useState("");
+    const [pickupDate,setPickupDate]=useState("");
+    const [returnDate,setReturnDate]=useState("");
     const [cars,setCars]=useState([])
     const fetchUser=async()=>{
         try {
@@ -59,7 +59,7 @@ export const AppProvider=({children})=>{
     },[token])
     const value={
         navigate,axios,user,setUser,token,setToken,isOwner,setIsOwner,fetchUser,showlogin,setShowLogin,logout,fetchcars,cars,setCars,pickupDate,
-        setpickupdate,returnDate,setreturndate
+        setPickupDate,returnDate,setReturnDate
     }
     return(
     <AppContext.Provider value={value}>

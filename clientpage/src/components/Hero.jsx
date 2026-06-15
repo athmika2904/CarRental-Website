@@ -1,8 +1,14 @@
 import React from 'react'
 import { assets, cityList } from '../assets/assets'
 import { useState } from 'react';
+import { useAppContext } from '../context/AppContext';
 const Hero = () => {
     const [pickupLocation,setPickupLocation]=useState("");
+    const {pickupDate,setPickupDate,returnDate,setReturnDate,navigate}=useAppContext()
+    const handleSearch=(e)=>{
+      e.preventDefault()
+      navigate('/cars?pickupLocation='+pickupLocation.toLowerCase()+'&pickupDate='+pickupDate+'&returnDate='+returnDate)
+    }
   return (
     <div className="flex flex-col items-center pt-28 pb-10 gap-8 bg-gray-100 text-center">
 
@@ -15,10 +21,11 @@ const Hero = () => {
   gap-6 md:gap-8
   px-10 md:px-14 py-8
   bg-white rounded-2xl md:rounded-full
-  shadow-xl mt-8">
+  shadow-xl mt-8" onSubmit={handleSearch}>
 
-    <div className="flex flex-col items-start">
-      <label className="text-sm font-medium">Pickup Location</label>
+
+<div className='flex flex-col  items-start '>
+    <label className='text-sm font-medium'>Pickup Location</label>
       <select
         required
         value={pickupLocation}
@@ -30,7 +37,8 @@ const Hero = () => {
           <option key={city} value={city}>{city}</option>
         ))}
       </select>
-    </div>
+  </div>
+    
 
     <div className="flex flex-col items-start">
       <label className="text-sm font-medium">Date of Pick-up</label>
@@ -38,7 +46,7 @@ const Hero = () => {
         type="date"
         min={new Date().toISOString().split("T")[0]}
         className="border rounded-lg px-4 py-3 text-base text-gray-700 w-full md:w-auto"
-        required
+        required value={pickupDate} onChange={e=>setPickupDate(e.target.value)}
       />
     </div>
 
@@ -47,7 +55,7 @@ const Hero = () => {
       <input
         type="date"
         className="border rounded-lg px-4 py-3 text-base text-gray-700 w-full md:w-auto"
-        required
+        required value={returnDate} onChange={e=>setReturnDate(e.target.value)}
       />
     </div>
 
@@ -59,7 +67,7 @@ const Hero = () => {
       <img src={assets.search_icon} className="w-4 brightness-0 invert"/>
       Search
     </button>
-
+        
   </form>
 
   <img

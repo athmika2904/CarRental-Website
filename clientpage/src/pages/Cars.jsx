@@ -1,10 +1,47 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Title from '../components/Title'
 import { assets, dummyCarData } from '../assets/assets'
 import Carcard from '../components/Carcard';
+import { useSearchParams } from 'react-router-dom';
+import { useAppContext } from '../context/AppContext';
+import toast from 'react-hot-toast';
 
 const Cars = () => {
+  const [searchParams]=useSearchParams()
+  const pickupLocation=searchParams.get('pickupLocation')
+  const pickupDate=searchParams.get('pickupDate')
+  const returnDate=searchParams.get('returnDate')
+  const {cars,axios}=useAppContext();
   const [input,setInput]=useState('');
+  const isSearchData=pickupLocation && pickupDate && returnDate
+  const [filteredCars,setFilteredCars]=useState([])
+  console.log(pickupLocation);
+  const searchCarAvailability=async()=>{
+    try{
+      console.log("API CALLED");
+    const {data}=await axios.post('/api/bookings/check-availability',{location:pickupLocation,pickupDate,returnDate})
+    console.log(data);
+    if(data.success){
+      console.log("SETTING FILTERED CARS");
+      setFilteredCars(data.availableCars)
+      if(data.availableCars.length===0){
+        toast('No cars available')
+      }
+      return null
+    }
+    }
+    catch(error){
+      toast.error(error.message);
+    }
+  }
+  useEffect(() => {
+  if (isSearchData) {
+    searchCarAvailability();
+  }
+}, [pickupLocation, pickupDate, returnDate]);
+  useEffect(() => {
+  console.log("FILTERED CARS UPDATED:", filteredCars);
+}, [filteredCars]);
   return (
     <div>
       <div className='flex flex-col items-center py-20 bg-light max-md:px-4'>
@@ -18,9 +55,9 @@ const Cars = () => {
         </div>
       </div>
       <div className='px-6 md:px-16 lg:px-24 xl:px-32 mt-10'>
-        <p className='text-gray-500 mb-2'>Showing {dummyCarData.length} Cars</p>
+        <p className='text-gray-500 mb-2'>Showing {filteredCars.length} Cars</p>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4 xl:px-20 max-w-7xl mx-auto'>
-            {dummyCarData.map((car,index)=>(
+            {filteredCars.map((car,index)=>(
               <div key={index}>
                 <Carcard car={car}/>
               </div>

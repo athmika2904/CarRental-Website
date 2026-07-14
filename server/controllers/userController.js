@@ -45,21 +45,53 @@ export const LoginUser=async(req,res)=>{
         res.json({success:false,message:error.message})
     }
 }
-export const getUserData=async (req,res)=>{
+export const getUserData = async (req, res) => {
     try {
-        const user=req;
-        res.json({success:true,user})
+        res.json({
+            success: true,
+            user: req.user
+        });
     } catch (error) {
         console.log(error.message);
-        res.json({success:false,message:error.message})
+        res.json({
+            success: false,
+            message: error.message
+        });
     }
 }
-export const getCars=async(req,res)=>{
-    try {
-        const cars=await Car.find({isAvailable:true})
-        res.json({success:true,cars})
-    } catch (error) {
-        console.log(error.message);
-        res.json({success:false,message:error.message})
+export const getCarById = async (req,res)=>{
+    try{
+        const car = await Car.findById(req.params.id);
+
+        res.json({
+            success:true,
+            car
+        });
+    }
+    catch(error){
+        res.json({
+            success:false,
+            message:error.message
+        });
     }
 }
+export const getCars = async (req, res) => {
+  try {
+    const cars = await Car.find({
+      isAvailable: true,
+      owner: { $ne: null }
+    });
+
+    res.json({
+      success: true,
+      cars
+    });
+  } catch (error) {
+    console.log(error.message);
+
+    res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};

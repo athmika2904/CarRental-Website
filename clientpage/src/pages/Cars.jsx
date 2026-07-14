@@ -12,10 +12,26 @@ const Cars = () => {
   const pickupDate=searchParams.get('pickupDate')
   const returnDate=searchParams.get('returnDate')
   const {cars,axios}=useAppContext();
+  console.log("CONTEXT CARS:", cars);
+console.log("TYPE:", typeof cars);
+console.log("IS ARRAY:", Array.isArray(cars));
   const [input,setInput]=useState('');
   const isSearchData=pickupLocation && pickupDate && returnDate
   const [filteredCars,setFilteredCars]=useState([])
   console.log(pickupLocation);
+  const applyFilter=async()=>{
+    if(input===''){
+      setFilteredCars(cars)
+      return null
+    }
+    const filtered=cars.slice().filter((c)=>{
+      return c.brand.toLowerCase().includes(input.toLowerCase())
+      || c.model.toLowerCase().includes(input.toLowerCase())
+      || c.category.toLowerCase().includes(input.toLowerCase())
+      || c.transmission.toLowerCase().includes(input.toLowerCase())
+    })
+    setFilteredCars(filtered)
+  }
   const searchCarAvailability=async()=>{
     try{
       console.log("API CALLED");
@@ -42,6 +58,11 @@ const Cars = () => {
   useEffect(() => {
   console.log("FILTERED CARS UPDATED:", filteredCars);
 }, [filteredCars]);
+useEffect(() => {
+  if (Array.isArray(cars) && !isSearchData) {
+    applyFilter();
+  }
+}, [input, cars, isSearchData]);
   return (
     <div>
       <div className='flex flex-col items-center py-20 bg-light max-md:px-4'>

@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import { useLocation,Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Cars from './pages/Cars';
-import CarDetails from './pages/carDetails';
+import CarDetails from './pages/CarDetails';
 import MyBookings from './pages/MyBookings';
 import Footer from './components/Footer';
 import Layout from './pages/Owner/Layout';

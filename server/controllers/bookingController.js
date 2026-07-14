@@ -111,6 +111,7 @@ export const createBooking=async(req,res)=>{
         const returned=new Date(returnDate)
         const noofDays=Math.ceil((returned-picked)/(1000*60*60*24))
         const price=carData.pricePerDay*noofDays;
+        console.log("Booking created by user:", req.user._id);
         await Booking.create({car,owner:carData.owner,user:_id,pickupDate,returnDate,price})
         res.json({success:true,message:"Booking Created"})
     } catch (error) {
@@ -118,18 +119,41 @@ export const createBooking=async(req,res)=>{
         res.json({success:false,message:error.message})
     }
 }
-export const getUserbooking=async(req,res)=>{
-    try {
-        const {_id}=req.user;
-        const bookings=await Booking.find({user:_id}).populate("car").sort({createdAt:-1})
-        res.json({success:true,bookings})
-    }
-    catch(error){
-        console.log(error.message);
-        res.json({success:false,message:error.message})
+export const getUserbooking = async (req, res) => {
+  try {
+    console.log("Logged in user:", req.user._id);
 
-    }
-}
+    const allBookings = await Booking.find().populate("car");
+
+    console.log("All bookings:");
+    allBookings.forEach((b) => {
+      console.log({
+        bookingId: b._id,
+        user: b.user.toString(),
+        owner: b.owner.toString(),
+      });
+    });
+
+    const bookings = await Booking.find({
+      user: req.user._id,
+    })
+      .populate("car")
+      .sort({ createdAt: -1 });
+
+    console.log("Bookings returned:", bookings.length);
+
+    res.json({
+      success: true,
+      bookings,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 export const getownerbooking=async(req,res)=>{
     try {
         if(req.user.role!=='owner'){

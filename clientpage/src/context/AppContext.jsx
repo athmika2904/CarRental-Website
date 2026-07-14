@@ -31,14 +31,20 @@ export const AppProvider=({children})=>{
             toast.error(error.message)
         }
     }
-    const fetchcars=async()=>{
-        try {
-            const {data}=await axios.get('/api/user/cars')
-            data.success?setCars(data.cars):toast.error(data.message)
-        } catch (error) {
-             toast.error(error.message)
-        }
+    const fetchcars = async () => {
+  try {
+    const { data } = await axios.get('/api/user/cars');
+
+    console.log("API RESPONSE:", data);
+
+    if (data.success) {
+      console.log("SETTING CARS:", data.cars);
+      setCars(data.cars);
     }
+  } catch (error) {
+    console.log(error);
+  }
+}
     const logout=()=>{
         localStorage.removeItem('token');
         setToken(null);

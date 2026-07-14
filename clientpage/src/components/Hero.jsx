@@ -2,6 +2,7 @@ import React from 'react'
 import { assets, cityList } from '../assets/assets'
 import { useState } from 'react';
 import { useAppContext } from '../context/AppContext';
+import {motion} from 'motion/react'
 const Hero = () => {
     const [pickupLocation,setPickupLocation]=useState("");
     const {pickupDate,setPickupDate,returnDate,setReturnDate,navigate}=useAppContext()
@@ -10,13 +11,19 @@ const Hero = () => {
       navigate('/cars?pickupLocation='+pickupLocation.toLowerCase()+'&pickupDate='+pickupDate+'&returnDate='+returnDate)
     }
   return (
-    <div className="flex flex-col items-center pt-28 pb-10 gap-8 bg-gray-100 text-center">
+    <motion.div 
+    initial={{opacity:0}}
+    animate={{opacity:1}} transition={{duration:0.8}}
+    className="flex flex-col items-center pt-28 pb-10 gap-8 bg-gray-100 text-center">
 
-  <h1 className="text-4xl md:text-5xl font-semibold">
+  <motion.h1 initial={{y:50,opacity:0}}
+    animate={{y:0,opacity:1}} transition={{duration:0.8,delay:0.2}}
+     className="text-4xl md:text-5xl font-semibold">
     Luxury cars on Rent!
-  </h1>
+  </motion.h1>
 
- <form
+ <motion.form
+ initial={{scale:0.95,y:50,opacity:0}} animate={{scale:1,y:0,opacity:1}} transition={{duration:0.6,delay:0.4}}
   className="flex flex-col md:flex-row items-center md:items-end
   gap-6 md:gap-8
   px-10 md:px-14 py-8
@@ -59,24 +66,26 @@ const Hero = () => {
       />
     </div>
 
-    <button
+    <motion.button
+    whileHover={{scale:1.05}} whileTap={{scale:0.95}}
       className="flex items-center justify-center gap-2
       px-10 py-3 bg-blue-800 hover:bg-blue-900
       text-white text-base font-medium rounded-full
       w-full md:w-auto">
       <img src={assets.search_icon} className="w-4 brightness-0 invert"/>
       Search
-    </button>
+    </motion.button>
         
-  </form>
+  </motion.form>
 
-  <img
+  <motion.img
+  initial={{y:100,opacity:0}} animate={{y:0,opacity:1}} transition={{duration:0.8,delay:0.6}}
     src={assets.main_car}
     alt="maincar"
     className="w-full max-w-4xl mt-4 mb-10 px-6 object-contain"
   />
 
-</div>
+</motion.div>
   )
 }
 
